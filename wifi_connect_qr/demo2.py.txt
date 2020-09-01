@@ -1,0 +1,8 @@
+wifi connection using qr code
+import pyqrcode as pq
+
+ssid = 'Strange'
+security = 'WPA2 PSK'
+password = ''
+qr = pq.create(f'WIFI:S:{ssid};T:{security};P:{password};;')
+qr.svg('b.svg', scale=4, background="white", module_color="black")

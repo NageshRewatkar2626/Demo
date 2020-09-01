@@ -1,0 +1,29 @@
+import cv2
+import pytesseract
+import re
+import numpy as np
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+img =cv2.imread('nag_adhar.jpg')
+width , height= 400,300
+imgResize = cv2.resize(img,(width,height))
+imge = cv2.cvtColor(imgResize,cv2.COLOR_BGR2RGB)
+# print(pytesseract.image_to_string(imge))
+
+print(pytesseract.image_to_string(imge ,lang = 'hin'))
+himg,wimg,_ = imge.shape
+box_list=pytesseract.image_to_data(imge)
+
+# print(box_list)
+for x,b in enumerate(box_list.splitlines()):
+    if x!=0:
+#     print(b)
+        b=b.split()
+        print(b)
+        if len(b) ==12:
+            x,y,w,h = int(b[6]),int(b[7]),int(b[8]),int(b[9])
+            cv2.rectangle(imge,(x,y),(w+x,h+y),(0,0,255),1)
+            cv2.putText(imge,b[11],(x,y),cv2.FONT_HERSHEY_COMPLEX,1,(50,50,255),2)
+cv2.imshow('Result',imge)
+
+cv2.waitKey()

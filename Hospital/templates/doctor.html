@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Click to cloud</title>
+</head>
+<body>
+
+<br><br>
+<form action="{% url 'doctor_save' %}" method="post">
+	{% csrf_token %}
+
+<table border="1" align="center" width="300">
+	<tr><th>Reg Form</th></tr>
+	<tr><th><input type="text" name="n1" placeholder="Doctor Name"></th></tr>
+	<tr><th><input type="date" name="n2" placeholder="Joining date" data-date-format="YYYY-MM-DD"></th></tr>
+	<tr><th><input type="text" name="n3" placeholder="Speciality"></th></tr>
+	<tr><th><input type="number" name="n4" placeholder="Salary"></th></tr>
+	<tr><th><input type="number" name="n5" placeholder="Experiance"></th></tr>
+	<tr><th><select name="n6">
+		{% for x in h_data %}
+			<option value="{{ x.Hospital_id }}">{{x.Hospital_name}}</option>
+		{% endfor %}
+	</select></th></tr>
+	<tr><th><button type="submit">Save</button></th></tr>
+	
+</table>
+</form>
+
+<table align="left" border="1" cellspacing="0">
+	<tr><th>No.</th>
+		<th>Name</th>
+		<th>Date</th>
+		<th>Speacility</th>
+		<th>Salary</th>
+		<th>Experiance</th>
+		<th>Hospital</th>
+		<th>Delete</th>
+		<th>Update</th>
+	</tr>
+	{% for x in d_data %}
+<tr>
+	<th>{{forloop.counter}}</th>
+	<th>{{x.Doctor_name}}</th>
+	<th>{{x.Joining_date}}</th>
+	<th>{{x.Speciality}}</th>
+	<th>{{x.Salary}}</th>
+	<th>{{x.Experiance}}</th>
+	<th>{{x.hospital_id.Hospital_name}}</th>
+	<th><a href="{% url 'delete' %}?D_id={{x.Doctor_id}}">Yes</a></th>
+	<th><a href="{% url 'update' %}?D_id={{x.Doctor_id}}">Yes</a></th>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

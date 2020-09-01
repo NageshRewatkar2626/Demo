@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Click to Cloud</title>
+</head>
+<body><br><br>
+<th><a href="">Home</a></th><br><br>
+<th><a href="{% url 'hospital' %}">Add Hospital Details</a></th><br><br>
+<th><a href="{% url 'doctor' %}">Add Doctor Details</a></th><br><br>
+{% for x in messages %}
+	<tr><th>{{x}}</th></tr>
+	{% endfor %}
+</body>
+</html>
